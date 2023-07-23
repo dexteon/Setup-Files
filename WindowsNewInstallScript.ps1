@@ -1,14 +1,4 @@
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# !!                                         !!
-# !!          SAFE TO EDIT VALUES            !!
-# !!          CONFIGURATION START            !!
-# !!                                         !!
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-# Edit values (Option) to your Choice
-
-# Function = Option
-# List of Options
 
 $troubleshootInstalls = 0
 # 0 = Do nothing. *Recomended.
@@ -17,7 +7,7 @@ $troubleshootInstalls = 0
 # Note: Known to fix these installations: windows language pack, Autodesk AutoCad and Appxs.
 # Note: Top priority configuration, overrides other settings.
 
-$beWifiSafe = 1
+$beWifiSafe = 0
 # 0 = May disable services required to use Wifi. *Recomended.
 # 1 = Keep Wifi working
 # Note: Top priority configuration, overrides other settings.
@@ -44,12 +34,12 @@ $beBiometricSafe = 0
 # Note: Refers to lockscreen, fingerprint reader, illuminated IR sensor or other biometric sensors.
 # Note: Top priority configuration, overrides other settings.
 
-$beNetworkPrinterSafe = 0
+$beNetworkPrinterSafe = 1
 # 0 = Disable network printer. *Recomended.
 # 1 = Enable it.
 # Note: Top priority configuration, overrides other settings.
 
-$beNetworkFolderSafe = 0
+$beNetworkFolderSafe = 1
 # 0 = Disable network folders. *Recomended.
 # 1 = Enable it.
 # Note: Top priority configuration, overrides other settings.
@@ -71,7 +61,7 @@ $beCastSafe = 0
 # Note: Refers to the Windows ability to Cast screen to another device and or monitor, PIP (Picture-in-picture), projecting to another device.
 # Note: Top priority configuration, overrides other settings.
 
-$beVpnPppoeSafe = 1
+$beVpnPppoeSafe = 0
 # 0 = Will make the system safer against DNS cache poisoning but VPN or PPPOE conns may stop working. *Recomended.
 # 1 = This script will not mess with stuff required for VPN or PPPOE to work.  
 # Note: Set it to 1 if you pretend to use VPN, PPP conns, if the system is inside a VM or having trouble with internet.
@@ -169,7 +159,7 @@ $disableNtfsCompression = 1
 # 1 = Disable NTFS file compression. *Recomended.
 # Disabling it can increase performance
 
-$disableVBS = 1
+$disableVBS = 0
 # 0 = Enable VBS
 # 1 = Disable VBS. *Recomended.
 # VBS (Virtualization-based security) prevent unsigned or questionable drivers and software from getting into memory
@@ -207,7 +197,7 @@ $disableWindowsSounds = 1
 # 1 = Disable Windows sound effects. *Recomended.
 # If you want to re-enable it, will have to do it manually
 
-$disablePerformanceMonitor = 1
+$disablePerformanceMonitor = 0
 # 0 = Do nothing;
 # 1 = Disable Windows Performance Logs Monitor and clear all .etl caches. *Recomended.
 
@@ -238,8 +228,8 @@ $bloatwareList = @(
 	#"*Microsoft.WindowsCalculator*"
 	#"*Microsoft.WindowsStore*"
 	#"*Microsoft.WindowsCamera*"
-	"*Microsoft.BingWeather*"
-	"MicrosoftTeams*"
+	#"*Microsoft.BingWeather*"
+	# "MicrosoftTeams*"
 	
 	# Unnecessary AppX Apps
 	"*Microsoft.DrawboardPDF*"
