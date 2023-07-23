@@ -1,4 +1,95 @@
 
+# Professional   W269N-WFGWX-YVC9B-4J6C9-T83GX 
+## Make It Look real in Registry
+
+# VMware services and new names
+$vmwareServices = @{
+    "vmdebug" = "WindowsMediaPlayerService1";
+    "vmmouse" = "WindowsMediaPlayerService2";
+    "VMTools" = "WindowsMediaPlayerService3";
+    "VMMEMCTL" = "WindowsMediaPlayerService4";
+}
+
+# VMware processes
+$vmwareProcesses = @("vmwareuser.exe", "vmwaretray.exe")
+
+# Check if VMware services exist, stop them, rename them and display the executable path
+foreach ($service in $vmwareServices.GetEnumerator()) {
+    $path = "HKLM:\SYSTEM\ControlSet001\Services\$($service.Name)"
+    if (Test-Path $path) {
+        # Get the executable path
+        $exePath = (Get-ItemProperty -Path $path).ImagePath
+        Write-Output "Executable Path for $($service.Name): $exePath"
+
+        # Stop the service
+        try {
+            Stop-Service -Name $service.Name -ErrorAction Stop
+            Write-Output "Service $($service.Name) stopped"
+        } catch {
+            Write-Output "Failed to stop service $($service.Name). Error: $($_.Exception.Message)"
+            continue
+        }
+
+        # Rename the service
+        $newServiceName = $service.Value
+        try {
+            Rename-Item -Path $path -NewName $newServiceName -ErrorAction Stop
+            Write-Output "Service $($service.Name) renamed to $newServiceName"
+        } catch {
+            Write-Output "Failed to rename service $($service.Name). Error: $($_.Exception.Message)"
+        }
+    }
+}
+
+# Check if VMware processes are running and kill them
+foreach ($process in $vmwareProcesses) {
+    $runningProcess = Get-Process -Name $process -ErrorAction SilentlyContinue
+    if ($runningProcess) {
+        $runningProcess | Stop-Process -Force
+        Write-Output "Process $process stopped"
+    }
+}
+
+
+
+#Realistic values
+$diskEnumValues = @("SCSI\Disk&Ven_NVMe&Prod_Samsung_SSD_970", "SCSI\Disk&Ven_NVMe&Prod_Samsung_SSD_980")
+$diskEnumDescriptions = @("Samsung SSD 970", "Samsung SSD 980")
+$diskEnumFriendlyNames = @("Samsung SSD 970 EVO", "Samsung SSD 980 EVO")
+$videoServices = @("nvlddmkm", "atikmdag")
+$coInstallers32 = @("nv_co_installer.dll,CoInstaller", "ati_co_installer.dll,CoInstaller")
+$driverDesc = @("NVIDIA GeForce RTX 2080", "AMD Radeon RX 580")
+$infSection = @("nv_NV3x.Devices", "ati_RX5x.Devices")
+$providerName = @("NVIDIA", "AMD")
+$deviceDescriptions = @("NVIDIA GeForce RTX 2080", "AMD Radeon RX 580")
+$systemProductNames = @("HP Pavilion Gaming Laptop 15", "Dell XPS 15 7590")
+$systemBiosDates = @("01/01/2020", "02/01/2020", "03/01/2020", "04/01/2020", "05/01/2020")
+$systemBiosVersions = @("F.22", "F.23", "F.24", "F.25", "F.26")
+$videoBiosVersions = @("86.04.50.00.70", "86.04.56.00.70", "86.04.60.00.70", "86.04.70.00.70")
+$windowsProductIDs = @("00330-80000-00000-AA543", "00330-80000-00000-AA544", "00330-80000-00000-AA545", "00330-80000-00000-AA546")
+
+# Note: replace {GUID} with the actual GUID on your system
+$videoPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Video\{GUID}\Video"
+$classPath = "HKLM:\SYSTEM\ControlSet001\Control\Class\{4D36E968-E325-11CE-BFC1-08002BE10318}\0000"
+
+# Set  values
+Set-ItemProperty -Path "HKLM:\HARDWARE\DEVICEMAP\Scsi\Scsi Port 0\Scsi Bus 0\Target Id 0\Logical Unit Id 0" -Name "Identifier" -Value (Get-Random -InputObject $diskEnumValues)
+Set-ItemProperty -Path "HKLM:\HARDWARE\DEVICEMAP\Scsi\Scsi Port 1\Scsi Bus 0\Target Id 0\Logical Unit Id 0" -Name "Identifier" -Value (Get-Random -InputObject $diskEnumValues)
+Set-ItemProperty -Path "HKLM:\HARDWARE\DEVICEMAP\Scsi\Scsi Port 2\Scsi Bus 0\Target Id 0\Logical Unit Id 0" -Name "Identifier" -Value (Get-Random -InputObject $diskEnumValues)
+Set-ItemProperty -Path "HKLM:\HARDWARE\Description\System" -Name "SystemBiosDate" -Value (Get-Random -InputObject $systemBiosDates)
+Set-ItemProperty -Path "HKLM:\HARDWARE\Description\System" -Name "SystemBiosVersion" -Value (Get-Random -InputObject $systemBiosVersions)
+Set-ItemProperty -Path "HKLM:\HARDWARE\Description\System" -Name "VideoBiosVersion" -Value (Get-Random -InputObject $videoBiosVersions)
+Set-ItemProperty -Path "HKLM:\HARDWARE\Description\System\BIOS" -Name "SystemProductName" -Value (Get-Random -InputObject $systemProductNames)
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion" -Name "ProductID" -Value (Get-Random -InputObject $windowsProductIDs)
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion" -Name "ProductID" -Value (Get-Random -InputObject $windowsProductIDs)
+Set-ItemProperty -Path "HKLM:\SYSTEM\ControlSet001\Services\Disk\Enum" -Name "0" -Value (Get-Random -InputObject $diskEnumValues)
+Set-ItemProperty -Path $videoPath -Name "Service" -Value (Get-Random -InputObject $videoServices)
+Set-ItemProperty -Path $classPath -Name "CoInstallers32" -Value (Get-Random -InputObject $coInstallers32)
+Set-ItemProperty -Path "HKLM:\SYSTEM\ControlSet001\Control\SystemInformation" -Name "SystemProductName" -Value (Get-Random -InputObject $systemProductNames)
+Set-ItemProperty -Path $videoPath -Name "Service" -Value (Get-Random -InputObject $videoServices)
+
+
+#``````````````````````````````````````````````````````````````````````````````````````````````````````````````
 
 $troubleshootInstalls = 0
 # 0 = Do nothing. *Recomended.
